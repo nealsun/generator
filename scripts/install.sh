@@ -20,12 +20,12 @@ Centos_Platform=1
 
 
 # check sudo permission
-sudo_permission_check() {
-    if ! sudo echo -n " "; then
-        echo "no sudo permission, please add yourself in the sudoers"
-        exit 1
-    fi
-}
+# sudo_permission_check() {
+#     if ! sudo echo -n " "; then
+#         echo "no sudo permission, please add yourself in the sudoers"
+#         exit 1
+#     fi
+# }
 
 clear_cache() {
     cd ${project_dir}
@@ -106,10 +106,10 @@ install_all_deps() {
     platform=$(echo $?)
     # platform=$(get_platform)
     if [ ${platform} -eq ${Ubuntu_Platform} ]; then
-        sudo apt-get -y install python-pip curl openssl
+        apt-get -y install python-pip curl openssl
         # sudo apt-get -y install nc
     elif [ ${platform} -eq ${Centos_Platform} ]; then
-        sudo yum install -y python-pip openssl curl which
+        yum install -y python-pip openssl curl which
     else
         LOG_ERROR "Unsupported Platform"
         exit 1
@@ -122,7 +122,7 @@ install_deps() {
 }
 
 install_all() {
-    sudo_permission_check
+    # sudo_permission_check
     install_deps
     # pip install configparser --user
     export LC_ALL=C && pip install --user -r requirements.txt
